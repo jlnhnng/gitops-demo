@@ -21,4 +21,4 @@ Please keep an eye on the Pods in the project namespace:
 watch kubectl get po -n <project-ns>
 ```
 
-As soon as everything is up, please visit e.g. https://abcc6d03017104680b6bc699174eb48d-691815500.us-west-2.elb.amazonaws.com/demo/ui, depending on your LoadBalancer Address. 
+As soon as everything is up, please visit https://LoadBalancerAddress/demo. Use your LoadBalancer address instead of "LoadBalancerAddress".
