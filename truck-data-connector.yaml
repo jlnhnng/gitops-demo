@@ -32,11 +32,11 @@ spec:
         - name: NODE_TLS_REJECT_UNAUTHORIZED
           value: '0'
         - name: Kafka
-          value: kafka-kafka-0.kafka-svc.default.svc.cluster.local:9093
+          value: kafka-kafka-0.kafka-svc.projectone-gsj48.svc.cluster.local:9093
         - name: Topic
           value: 'trucks' 
         - name: Cassandra
-          value: cassandra-node-0.cassandra-svc.default.svc.cluster.local:9042
+          value: cassandra-node-0.cassandra-svc.projectone-gsj48.svc.cluster.local:9042
       initContainers:
       - image: jlnhnng/truck-cassandra-init:latest
         imagePullPolicy: Always
