@@ -35,7 +35,7 @@ spec:
         app: truck-data-api
     spec:
       containers:
-      - image: jlnhnng/truck-python-api:latest
+      - image: jlnhnng/truck-data-api:latest
         imagePullPolicy: Always
         name: truck-data-api
         resources: {}
