@@ -43,7 +43,7 @@ watch kubectl get po -n ProjectNamespace
 As soon as everything is up, please use:
 
 ``` bash
-watch kubectl get svc truck-demo-ui-svc -n ProjectNamespace
+kubectl get svc truck-demo-ui-svc -n ProjectNamespace
 ```
 
 *Please replace ***ProjectNamespace*** with your Project Namespace.*
