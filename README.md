@@ -19,7 +19,7 @@ To create the resources needed like the api's, a frontend and the data generator
 
 What will be installed?
 
-![Demo](https://raw.githubusercontent.com/jlnhnng/gitops-demo/demo/Truck-Efficiency.png?raw=true)
+![Demo](https://github.com/jlnhnng/gitops-demo/blob/demo/Truck-Efficiency.png?raw=true)
 
 * Python API
   * The Python Api receives data from the trucks and writes every update into Kafka.
