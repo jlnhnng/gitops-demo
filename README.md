@@ -9,7 +9,7 @@ This branch was created to roll-out the truck efficiency demo. It is meant to sh
   * Zookeeper (ID: zookeeper)
   * Install Kafka (ID: kafka)
   * Install Cassandra (ID: cassandra)
-* Create a [ConfigMap](https://docs.d2iq.com/dkp/kommander/1.4/projects/project-configmaps/) with the following key value pairs and replace ***ProjectNamespace*** with your Project Namespace:
+* Create a [ConfigMap](https://docs.d2iq.com/dkp/kommander/1.4/projects/project-configmaps/) with the name "dataservices" the following key value pairs and replace ***ProjectNamespace*** with your Project Namespace:
   * Kafka=kafka-kafka-0.kafka-svc.***ProjectNamespace***.svc.cluster.local:9093
   * Cassandra=cassandra-node-0.cassandra-svc.***ProjectNamespace***.svc.cluster.local:9042
 
