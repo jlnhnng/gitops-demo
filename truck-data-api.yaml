@@ -49,7 +49,10 @@ spec:
         - name: PYTHONUNBUFFERED
           value: "1"
         - name: KAFKA
-          value: "kafka-kafka-0.kafka-svc.default.svc.cluster.local:9093"
+          valueFrom:
+            configMapKeyRef:
+              name: dataservices
+              key: Kafka
       initContainers:
       - image: jlnhnng/truck-kafka-init:latest
         imagePullPolicy: Always
