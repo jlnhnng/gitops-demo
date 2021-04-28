@@ -55,7 +55,7 @@ You will find a Loadbalancer Address. Please visit <https://LoadBalancerAddress.
 One truck is one pod. The pod will restart after the truck finished (or had to stop unplanned) the drive. If you want to create more please scale the deployment:
 
 ``` bash
-watch kubectl scale --replicas=5 deploy/truck-data-generator -n ProjectNamespace
+kubectl scale --replicas=5 deploy/truck-data-generator -n ProjectNamespace
 ```
 
 ### Advanced
