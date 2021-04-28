@@ -22,7 +22,7 @@ spec:
         app: truck-data-connector
     spec:
       containers:
-      - image: jlnhnng/truck-data-connector:latest
+      - image: d2iqdemo/truck-data-connector:latest
         imagePullPolicy: Always
         name: truck-data-connector
         resources: {}
@@ -44,7 +44,7 @@ spec:
               name: dataservices
               key: Cassandra
       initContainers:
-      - image: jlnhnng/truck-cassandra-init:latest
+      - image: d2iqdemo/truck-cassandra-init:latest
         imagePullPolicy: Always
         name: cassandra-init
         env:
@@ -69,7 +69,7 @@ spec:
     - port: 3002
       targetPort: 3002
 ---
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
@@ -80,6 +80,9 @@ spec:
   - http:
       paths:
       - path: /data-connector
+        pathType: Prefix
         backend:
-          serviceName: truck-data-connector-svc
-          servicePort: 3002
+          service:
+            name: truck-data-connector-svc
+            port: 
+              number: 3002

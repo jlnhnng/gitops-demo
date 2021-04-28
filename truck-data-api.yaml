@@ -35,7 +35,7 @@ spec:
         app: truck-data-api
     spec:
       containers:
-      - image: jlnhnng/truck-data-api:latest
+      - image: d2iqdemo/truck-data-api:latest
         imagePullPolicy: Always
         name: truck-data-api
         resources: {}
@@ -54,23 +54,22 @@ spec:
               name: dataservices
               key: Kafka
       initContainers:
-      - image: jlnhnng/truck-kafka-init:latest
+      - image: d2iqdemo/truck-kafka-init:latest
         imagePullPolicy: Always
-        name: kafka-init
+        name: truck-kafka-init
         env:
         - name: namespace
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
       dnsPolicy: ClusterFirst
-      restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 1
 status: {}
 
 ---
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
@@ -81,6 +80,9 @@ spec:
   - http:
       paths:
       - path: /data-api
+        pathType: Prefix
         backend:
-          serviceName: truck-data-api-svc
-          servicePort: 8080
+          service:
+            name: truck-data-api-svc
+            port: 
+              number: 8080
