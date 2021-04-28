@@ -4,7 +4,7 @@ kind: Service
 metadata:
   name: truck-demo-ui-svc
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   selector:
     app: truck-demo-ui
   ports:
@@ -61,8 +61,7 @@ kind: Ingress
 metadata:
   annotations:
     kubernetes.io/ingress.class: traefik
-    traefik.ingress.kubernetes.io/request-modifier: 
-      AddPrefix: "/demo-ui"
+    traefik.ingress.kubernetes.io/rewrite-target: /
   name: truck-demo-ui
 spec:
   rules:
