@@ -4,12 +4,13 @@ kind: Service
 metadata:
   name: truck-demo-ui-svc
 spec:
-  type: Loadbalancer
+  type: ClusterIP
   selector:
     app: truck-demo-ui
   ports:
-    - port: 80
-      targetPort: 8080
+    - protocol: TCP
+      port: 80
+      targetPort: 80
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -54,3 +55,23 @@ spec:
       securityContext: {}
       terminationGracePeriodSeconds: 1
 status: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/request-modifier: 
+      AddPrefix: "/demo-ui"
+  name: truck-demo-ui
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /demo-ui
+        pathType: Prefix
+        backend:
+          service:
+            name: truck-demo-ui-svc
+            port: 
+              number: 80
