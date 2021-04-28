@@ -67,7 +67,6 @@ spec:
       securityContext: {}
       terminationGracePeriodSeconds: 1
 status: {}
-
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
