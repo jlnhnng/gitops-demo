@@ -51,7 +51,7 @@ spec:
           valueFrom:
             configMapKeyRef:
               name: dataservices
-              key: API
+              key: API 
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
