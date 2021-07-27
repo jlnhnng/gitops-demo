@@ -66,14 +66,15 @@ spec:
   selector:
     app: truck-data-connector
   ports:
-    - port: 3002
-      targetPort: 3002
+    - port: 8000
+      targetPort: 8000
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
     kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/rewrite-target: /
   name: truck-data-connector-ingress
 spec:
   rules:
@@ -85,4 +86,4 @@ spec:
           service:
             name: truck-data-connector-svc
             port: 
-              number: 3002
+              number: 8000
