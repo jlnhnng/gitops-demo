@@ -63,8 +63,8 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    kubernetes.io/ingress.class: traefik
-    traefik.ingress.kubernetes.io/rewrite-target: /
+    konghq.com/strip-path: "true"
+    kubernetes.io/ingress.class: kong
   name: truck-demo-ui
 spec:
   rules:
