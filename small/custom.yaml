@@ -14,7 +14,7 @@ spec:
         app: hello-world
     spec:
       containers:
-      - image: "mesosphere/devx-dispatch-demo@sha256:f0153c5aaf26cd6e3e97fe4bc9bbbcb72e82d425e48d97133d851d99ea4e5b8d"
+      - image: jlnhnng/hello-world
         name: hello-world
         ports:
         - containerPort: 8080
@@ -35,17 +35,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   annotations:
-    certmanager.k8s.io/issuer: letsencrypt-issuer
-    kubernetes.io/ingress.class: traefik
-    traefik.ingress.kubernetes.io/auth-response-headers: X-Forwarded-User
-    traefik.ingress.kubernetes.io/auth-type: forward
-    traefik.ingress.kubernetes.io/auth-url: http://traefik-forward-auth-kubeaddons.kubeaddons.svc.cluster.local:4181/
-    traefik.ingress.kubernetes.io/rule-type: PathPrefixStrip
-  generation: 1
-  labels:
-    app.kubernetes.io/instance: hello-world
-    app.kubernetes.io/managed-by: Tiller
-    app.kubernetes.io/name: hello-world
+    kubernetes.io/ingress.class: kong
   name: hello-world
 spec:
   rules:
