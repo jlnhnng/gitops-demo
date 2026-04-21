@@ -1,11 +1,9 @@
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: hello-world
-  namespace: mirantis-labs
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: hello-world
@@ -15,7 +13,7 @@ spec:
         app: hello-world
     spec:
       containers:
-        - image: jlnhnng/hello-world
-          name: hello-world
-          ports:
-          - containerPort: 80
+      - image: jlnhnng/hello-world
+        name: hello-world
+        ports:
+        - containerPort: 8080
