@@ -14,7 +14,7 @@ spec:
         app: hello-world
     spec:
       containers:
-      - image: jlnhnng/hello-world
+      - image: ghcr.io/jlnhnng/hello-world:latest
         name: hello-world
         ports:
         - containerPort: 8080
