@@ -9,7 +9,7 @@
 Use a Project Secret, not a file in Git. NKP federates it to the project's clusters.
 
 > UI: Project → Secrets → Create, name `nextcloud-secrets`, with these keys:
-``` txt
+
 | key | value |
 |---|---|
 | nextcloud-username | admin |
@@ -18,4 +18,3 @@ Use a Project Secret, not a file in Git. NKP federates it to the project's clust
 | db-password | <strong> |
 | db-admin-password | <strong> |
 | redis-password | <strong> |
-```
