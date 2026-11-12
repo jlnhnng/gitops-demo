@@ -1,14 +1,14 @@
-apiVersion: helm.toolkit.fluxcd.io/v2          # use v2beta2 if your NKP's Flux is older than 2.3
+apiVersion: helm.toolkit.fluxcd.io/v2       
 kind: HelmRelease
 metadata:
   name: nextcloud
 spec:
   interval: 10m
-  timeout: 15m                                   # first install copies the Nextcloud code onto the Files share; that is slow
+  timeout: 15m                                   
   chart:
     spec:
       chart: nextcloud
-      version: "9.4.1"                             # current as of Nov 2026 (Nextcloud 35.0.2); pin and bump deliberately
+      version: "9.4.1"                             
       sourceRef:
         kind: HelmRepository
         name: nextcloud
@@ -19,11 +19,11 @@ spec:
     remediation:
       retries: 3
   values:
-    replicaCount: 1                              # keep 1 for the demo; RWX allows more later
+    replicaCount: 1                              
 
     # ---------- Nextcloud ----------
     nextcloud:
-      host: nextcloud.ntnxlab.local                       # the SHARED hostname you will flip in DNS at failover
+      host: nextcloud.ntnxlab.local                  
       trustedDomains:
         - nextcloud.ntnxlab.local
       existingSecret:
@@ -34,24 +34,22 @@ spec:
 
     ingress:
       enabled: true
-      className: nginx                           # CHANGE to your NKP ingress class (often "kommander-traefik")
+      className: kommander-traefik
 
     cronjob:
       enabled: true
 
-    # ---------- Storage: both on Nutanix Files (RWX) so NDK 2.x replicates them ----------
     persistence:
       enabled: true
-      storageClass: nutanix-files                # CHANGE to your Files (NFS) StorageClass name
+      storageClass: nutanix-files                
       accessMode: ReadWriteMany
       size: 10Gi
       nextcloudData:
         enabled: true
-        storageClass: nutanix-files              # CHANGE
+        storageClass: nutanix-files              
         accessMode: ReadWriteMany
         size: 50Gi
 
-    # ---------- Database: Bitnami PostgreSQL in the same namespace, on Volumes (block) ----------
     internalDatabase:
       enabled: false
     externalDatabase:
@@ -65,7 +63,6 @@ spec:
         passwordKey: db-password
     postgresql:
       enabled: true
-      # chart already defaults to bitnamilegacy/postgresql images; the host is wired automatically
       global:
         postgresql:
           auth:
@@ -78,10 +75,9 @@ spec:
       primary:
         persistence:
           enabled: true
-          storageClass: nutanix-volume           # CHANGE to your Volumes (block) StorageClass name
+          storageClass: nutanix-volume
           size: 10Gi
 
-    # ---------- Redis: locking/cache only, no persistence, nothing to replicate ----------
     redis:
       enabled: true
       auth:
