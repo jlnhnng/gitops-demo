@@ -1,0 +1,97 @@
+apiVersion: helm.toolkit.fluxcd.io/v2          # use v2beta2 if your NKP's Flux is older than 2.3
+kind: HelmRelease
+metadata:
+  name: nextcloud
+spec:
+  interval: 10m
+  timeout: 15m                                   # first install copies the Nextcloud code onto the Files share; that is slow
+  chart:
+    spec:
+      chart: nextcloud
+      version: "9.4.1"                             # current as of Nov 2026 (Nextcloud 35.0.2); pin and bump deliberately
+      sourceRef:
+        kind: HelmRepository
+        name: nextcloud
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    replicaCount: 1                              # keep 1 for the demo; RWX allows more later
+
+    # ---------- Nextcloud ----------
+    nextcloud:
+      host: nextcloud.ntnxlab.local                       # the SHARED hostname you will flip in DNS at failover
+      trustedDomains:
+        - nextcloud.ntnxlab.local
+      existingSecret:
+        enabled: true
+        secretName: nextcloud-secrets
+        usernameKey: nextcloud-username
+        passwordKey: nextcloud-password
+
+    ingress:
+      enabled: true
+      className: nginx                           # CHANGE to your NKP ingress class (often "kommander-traefik")
+
+    cronjob:
+      enabled: true
+
+    # ---------- Storage: both on Nutanix Files (RWX) so NDK 2.x replicates them ----------
+    persistence:
+      enabled: true
+      storageClass: nutanix-files                # CHANGE to your Files (NFS) StorageClass name
+      accessMode: ReadWriteMany
+      size: 10Gi
+      nextcloudData:
+        enabled: true
+        storageClass: nutanix-files              # CHANGE
+        accessMode: ReadWriteMany
+        size: 50Gi
+
+    # ---------- Database: Bitnami PostgreSQL in the same namespace, on Volumes (block) ----------
+    internalDatabase:
+      enabled: false
+    externalDatabase:
+      enabled: true
+      type: postgresql
+      database: nextcloud
+      existingSecret:
+        enabled: true
+        secretName: nextcloud-secrets
+        usernameKey: db-username
+        passwordKey: db-password
+    postgresql:
+      enabled: true
+      # chart already defaults to bitnamilegacy/postgresql images; the host is wired automatically
+      global:
+        postgresql:
+          auth:
+            database: nextcloud
+            username: nextcloud
+            existingSecret: nextcloud-secrets
+            secretKeys:
+              adminPasswordKey: db-admin-password
+              userPasswordKey: db-password
+      primary:
+        persistence:
+          enabled: true
+          storageClass: nutanix-volume           # CHANGE to your Volumes (block) StorageClass name
+          size: 10Gi
+
+    # ---------- Redis: locking/cache only, no persistence, nothing to replicate ----------
+    redis:
+      enabled: true
+      auth:
+        enabled: true
+        existingSecret: nextcloud-secrets
+        existingSecretPasswordKey: redis-password
+      master:
+        persistence:
+          enabled: false
+      replica:
+        replicaCount: 0
+        persistence:
+          enabled: false

@@ -5,6 +5,7 @@ resources:
   - pvc.yaml
   - deployment.yaml
   - service.yaml
+  - ingress.yaml
 images:
   - name: ghcr.io/open-webui/open-webui
     newTag: v0.13.3 # https://github.com/open-webui/open-webui/releases
