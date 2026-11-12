@@ -1,4 +1,4 @@
-apiVersion: source.toolkit.fluxcd.io/v1        # use v1beta2 if your NKP's Flux is older than 2.3
+apiVersion: source.toolkit.fluxcd.io/v1 
 kind: HelmRepository
 metadata:
   name: nextcloud
