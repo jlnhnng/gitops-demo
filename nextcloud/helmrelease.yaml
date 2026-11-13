@@ -19,21 +19,31 @@ spec:
     remediation:
       retries: 3
   values:
-    replicaCount: 1 
+    replicaCount: 1
+
+    startupProbe:
+      enabled: true
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 60
+      successThreshold: 1
 
     livenessProbe:
       enabled: true
-      initialDelaySeconds: 600
-      timeoutSeconds: 10
-      failureThreshold: 3
+      initialDelaySeconds: 10
       periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 3
+      successThreshold: 1
 
     readinessProbe:
       enabled: true
-      initialDelaySeconds: 600
-      timeoutSeconds: 10
-      failureThreshold: 3
+      initialDelaySeconds: 10
       periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 3
+      successThreshold: 1
 
     # ---------- Nextcloud ----------
     nextcloud:
