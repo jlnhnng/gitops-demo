@@ -59,11 +59,14 @@ spec:
     ingress:
       enabled: true
       className: kommander-traefik
+      hosts:
+        - host: nextcloud.nkp-demo.dev
       annotations:
         cert-manager.io/cluster-issuer: kommander-acme-issuer
       tls:
-        enabled: true
-        secretName: nextcloud-tls
+        - secretName: nextcloud-tls
+          hosts:
+            - nextcloud.nkp-demo.dev
 
     cronjob:
       enabled: true
