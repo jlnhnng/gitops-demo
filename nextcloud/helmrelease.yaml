@@ -61,6 +61,9 @@ spec:
       className: kommander-traefik
       annotations:
         cert-manager.io/cluster-issuer: kommander-acme-issuer
+      tls:
+        enabled: true
+        secretName: nextcloud-tls
 
     cronjob:
       enabled: true
