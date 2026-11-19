@@ -47,9 +47,9 @@ spec:
 
     # ---------- Nextcloud ----------
     nextcloud:
-      host: nextcloud.ntnxlab.local 
+      host: nextcloud.nkp-demo.dev
       trustedDomains:
-        - nextcloud.ntnxlab.local
+        - nextcloud.nkp-demo.dev
       existingSecret:
         enabled: true
         secretName: nextcloud-secrets
@@ -59,6 +59,8 @@ spec:
     ingress:
       enabled: true
       className: kommander-traefik
+      annotations:
+        cert-manager.io/cluster-issuer: kommander-acme-issuer
 
     cronjob:
       enabled: true
