@@ -50,6 +50,15 @@ spec:
       host: nextcloud.nkp-demo.dev
       trustedDomains:
         - nextcloud.nkp-demo.dev
+      configs:
+        proxy.config.php: |-
+          <?php
+          $CONFIG = array (
+            'trusted_domains' => array ('localhost', 'nextcloud.nkp-demo.dev'),
+            'overwrite.cli.url' => 'https://nextcloud.nkp-demo.dev',
+            'overwritehost' => 'nextcloud.nkp-demo.dev',
+            'trusted_proxies' => array ('192.168.0.0/16'),
+          );
       existingSecret:
         enabled: true
         secretName: nextcloud-secrets
@@ -59,8 +68,6 @@ spec:
     ingress:
       enabled: true
       className: kommander-traefik
-      hosts:
-        - host: nextcloud.nkp-demo.dev
 
     cronjob:
       enabled: true
